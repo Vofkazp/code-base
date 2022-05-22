@@ -1,0 +1,13 @@
+<app-side-bar></app-side-bar>
+<section class="main-section">
+  <div class="l-card">
+    <div>
+      <p>{{data.description}}</p>
+      <mat-tab-group dynamicHeight>
+        <mat-tab *ngFor="let item of data.codeBlock" [label]="item.title">
+          <pre><code [highlight]="item.code" [lineNumbers]="true"></code></pre>
+        </mat-tab>
+      </mat-tab-group>
+    </div>
+  </div>
+</section>
