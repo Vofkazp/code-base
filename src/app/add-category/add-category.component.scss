@@ -1,0 +1,135 @@
+section.add-section {
+  padding: 15px;
+
+  .l-card {
+    padding: 30px;
+    background: #ffffff;
+    border-radius: 15px;
+    min-height: calc(100vh - 30px);
+
+    .table-category {
+
+      .t-head {
+        display: flex;
+        align-items: center;
+        padding: 10px;
+        font-size: 20px;
+        line-height: 40px;
+        font-weight: 600;
+        border-bottom: 2px solid #313131;
+
+        .t-sort {
+          flex: 1;
+        }
+
+        .t-name {
+          flex: 2;
+        }
+
+        .t-module {
+          flex: 2;
+        }
+
+        .t-action {
+          flex: 2;
+        }
+      }
+
+      .t-body {
+        font-size: 18px;
+        line-height: 45px;
+
+        .mat-drawer-container {
+          background-color: transparent;
+
+          .mat-drawer-content {
+            overflow: visible;
+            padding: 10px;
+            border-bottom: 1px solid #bbb9b9;
+          }
+        }
+
+        .t-rows {
+          display: flex;
+          align-items: center;
+          height: 45px;
+
+          .t-b-sort {
+            flex: 1;
+
+            .draw {
+              display: flex;
+              align-items: center;
+              gap: 10px;
+
+              .mat-icon {
+                cursor: grab;
+              }
+            }
+          }
+
+          .t-b-name {
+            flex: 2;
+          }
+
+          .t-b-module {
+            flex: 2;
+          }
+
+          .t-b-action {
+            flex: 2;
+          }
+        }
+      }
+    }
+
+    .add-butn {
+      margin-top: 10px;
+    }
+  }
+}
+
+.cdk-drag-preview {
+  overflow: visible;
+  padding: 10px;
+  background-color: #ffffff;
+  font-size: 18px;
+  line-height: 45px;
+  border-top: 1px solid #bbb9b9;
+  border-bottom: 1px solid #bbb9b9;
+
+  .t-rows {
+    display: flex;
+    align-items: center;
+    height: 45px;
+    box-shadow : 0  5px  5px - 3px  rgba ( 0 , 0 , 0 , 0.2 ),
+    0  8px  10px  1px  rgba ( 0 , 0 , 0 , 0.14 ),
+    0  3px  14px  2px  rgba ( 0 , 0 , 0, 0,12 );
+
+    .t-b-sort {
+      flex: 1;
+
+      .draw {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+
+        .mat-icon {
+          cursor: grab;
+        }
+      }
+    }
+
+    .t-b-name {
+      flex: 2;
+    }
+
+    .t-b-module {
+      flex: 2;
+    }
+
+    .t-b-action {
+      flex: 2;
+    }
+  }
+}

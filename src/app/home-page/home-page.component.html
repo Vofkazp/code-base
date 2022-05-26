@@ -1,13 +1,77 @@
-<app-side-bar></app-side-bar>
-<section class="main-section">
-  <div class="l-card">
-    <div>
-      <p>{{data.description}}</p>
-      <mat-tab-group dynamicHeight>
-        <mat-tab *ngFor="let item of data.codeBlock" [label]="item.title">
-          <pre><code [highlight]="item.code" [lineNumbers]="true"></code></pre>
-        </mat-tab>
-      </mat-tab-group>
+<div class="block-home-page">
+  <nav class="navigated">
+    <div class="block">
+      <div class="accordion" id="accordionExample">
+        <h2 class="accordion-header m-0" id="heading" (click)="homePage()">
+          <button class="accordion-button collapsed no-icon" type="button" data-bs-toggle="collapse"
+                  aria-expanded="true" aria-controls="collapseOne">
+            <span>Главная</span>
+          </button>
+        </h2>
+        <div *ngFor="let item of menuItem; let i = index" class="accordion-item">
+          <h2 class="accordion-header m-0" id="heading{{i}}">
+            <button class="accordion-button" (click)="setLevelMenu1(item.moduleName)"
+                    [class.no-icon]="item.submenu.length === 0"
+                    [class.collapsed]="item.moduleName !== level1Menu" type="button"
+                    data-bs-toggle="collapse"
+                    [attr.data-bs-target]="'#'+item.moduleName" aria-expanded="true" aria-controls="collapseOne">
+              <span>{{item.title}}</span>
+            </button>
+          </h2>
+          <div *ngIf="item.submenu.length !== 0" id="{{item.moduleName}}" class="accordion-collapse collapse"
+               [class.show]="item.moduleName === level1Menu"
+               aria-labelledby="headingOne" data-bs-parent="#accordionExample">
+            <div class="accordion-body">
+              <div class="sub-item" [class.active]="sub.moduleName === level2Menu"
+                   *ngFor="let sub of item.submenu" (click)="setLevelMenu2(sub)">
+                {{sub.title}}
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
-  </div>
-</section>
+    <button class="add_button" routerLink="add-category">Добавить категорию</button>
+  </nav>
+  <section class="main-section">
+    <div class="l-card">
+      <div class="manag-button-block">
+        <button class="post-btn add-post" routerLink="add-post" matTooltip="Создать новый пост">
+          <mat-icon>minimize</mat-icon>
+        </button>
+        <button class="post-btn edit-post" matTooltip="Редактировать пост" [disabled]="codeId === null"
+                (click)="editPost()">
+          <mat-icon>filter_1</mat-icon>
+        </button>
+        <button class="post-btn delete-post" matTooltip="Удалить пост" [disabled]="codeId === null"
+                (click)="deletePost()">
+          <mat-icon>close</mat-icon>
+        </button>
+      </div>
+      <div class="post" *ngIf="!loading && data">
+        <h1>{{data.title}}</h1>
+        <p>{{data.description}}</p>
+        <mat-tab-group dynamicHeight>
+          <mat-tab *ngFor="let item of data.codeBlock" [label]="item.title">
+            <div class="code-block">
+              <button class="copy-btn" (click)="copyContent(item.code)" matTooltip="Копировать содержимое">
+                <mat-icon>content_copy</mat-icon>
+              </button>
+              <button class="down_load-btn" (click)="downloadFile(item)" [matTooltip]="'Сохранить файл ' + item.title">
+                <mat-icon>download</mat-icon>
+              </button>
+              <pre><code [highlight]="item.code" [lineNumbers]="true"></code></pre>
+            </div>
+          </mat-tab>
+        </mat-tab-group>
+      </div>
+      <div *ngIf="loading" class="loading">
+        <div class="loader"></div>
+      </div>
+      <div *ngIf="!data && !loading">
+        <h1 class="mt-3">Главная страница</h1>
+        <p>Кодовая база. Для сохранения отдельных кусков кода, файлов, директив, фильтров в удобном формате.</p>
+      </div>
+    </div>
+  </section>
+</div>

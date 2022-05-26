@@ -1,13 +1,20 @@
 export interface Menu {
+  id: number;
   title: string;
   moduleName: string;
-  icon: string;
+  sort: string;
   submenu: subMenu[];
 }
 
 export interface subMenu {
-  path: string;
+  id: number;
   title: string;
-  description: string;
   moduleName: string;
+}
+
+export interface category {
+  id: number;
+  title: string;
+  moduleName: string;
+  sort: string;
 }

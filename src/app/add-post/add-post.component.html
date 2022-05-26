@@ -1,0 +1,85 @@
+<section class="add-section">
+  <div class="l-card">
+    <h1><strong>{{title}}:</strong></h1>
+    <div [formGroup]="form">
+      <div class="row">
+        <div class="col">
+          <mat-form-field style="width: 100%" appearance="outline">
+            <mat-label>Название</mat-label>
+            <input formControlName="title" matInput>
+          </mat-form-field>
+        </div>
+        <div class="col">
+          <mat-form-field style="width: 100%" appearance="outline">
+            <mat-label>Название модуля</mat-label>
+            <input formControlName="moduleName" matInput>
+          </mat-form-field>
+        </div>
+        <div class="col">
+          <mat-form-field style="width: 100%" appearance="outline">
+            <mat-label>Категория</mat-label>
+            <mat-select formControlName="categoryId">
+              <mat-option *ngFor="let item of category" [value]="item.id">
+                {{item.title}}
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col">
+          <mat-form-field style="width: 100%" appearance="outline">
+            <mat-label>Описание</mat-label>
+            <textarea style="height: 150px" formControlName="description" matInput></textarea>
+          </mat-form-field>
+        </div>
+      </div>
+      <div class="code-block">
+        <ng-container formArrayName="codeBlock" *ngFor="let item of codeBlockControl.controls; let i = index">
+          <div class="code-block-item" [formGroupName]="i" *ngIf="!item.value.isDeleted">
+            <button mat-mini-fab color="warn" class="delete-block" (click)="deleteSection(i)">
+              <mat-icon>delete</mat-icon>
+            </button>
+            <div class="row">
+              <div class="col">
+                <mat-form-field style="width: 100%" appearance="outline">
+                  <mat-label>Название вкладки</mat-label>
+                  <input formControlName="title" matInput>
+                </mat-form-field>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col">
+                <mat-form-field style="width: 100%" appearance="outline">
+                  <mat-label>Код</mat-label>
+                  <textarea style="height: 150px" formControlName="code" matInput></textarea>
+                </mat-form-field>
+              </div>
+            </div>
+          </div>
+        </ng-container>
+        <button mat-raised-button color="accent" (click)="addBlock()">Добавить блок</button>
+      </div>
+      <div class="row my-5">
+        <div class="col text-center">
+          <button mat-raised-button color="primary" (click)="save()" [disabled]="!form.valid">Сохранить</button>
+        </div>
+        <div class="col text-center">
+          <button mat-raised-button color="accent" (click)="visibleCode = !visibleCode" [disabled]="!form.valid">Предпросмотр</button>
+        </div>
+        <div class="col text-center">
+          <button mat-raised-button color="basic" routerLink="/">Отмена</button>
+        </div>
+      </div>
+    </div>
+    <div class="post" *ngIf="form.valid && visibleCode">
+      <h1>{{form.value.title}}</h1>
+      <p>{{form.value.description}}</p>
+      <mat-tab-group dynamicHeight>
+        <mat-tab *ngFor="let item of form.value.codeBlock" [label]="item.title">
+          <pre><code [highlight]="item.code" [lineNumbers]="true"></code></pre>
+        </mat-tab>
+      </mat-tab-group>
+    </div>
+  </div>
+</section>

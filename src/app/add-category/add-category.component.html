@@ -1,1 +1,69 @@
-<p>add-category works!</p>
+<section class="add-section">
+  <div class="l-card">
+    <h1><strong>Категории:</strong></h1>
+    <form [formGroup]="form">
+      <div class="row">
+        <div class="col-4">
+          <mat-form-field style="width: 100%" appearance="outline">
+            <mat-label>Название</mat-label>
+            <input formControlName="title" matInput>
+          </mat-form-field>
+        </div>
+        <div class="col-4">
+          <mat-form-field style="width: 100%" appearance="outline">
+            <mat-label>Модуль</mat-label>
+            <input formControlName="moduleName" matInput>
+          </mat-form-field>
+        </div>
+        <div class="col-2">
+          <button *ngIf="create" class="add-butn" mat-flat-button color="primary" (click)="addCategory()"
+                  [disabled]="validator()">
+            Добавить категорию
+          </button>
+          <button *ngIf="!create" class="add-butn" mat-flat-button color="primary" (click)="editCategory()"
+                  [disabled]="validator()">
+            Редактировать категорию
+          </button>
+        </div>
+        <div class="col-2">
+          <button class="add-butn" mat-raised-button color="basic" routerLink="/">
+            Назад
+          </button>
+        </div>
+      </div>
+    </form>
+    <div class="table-category">
+      <div class="t-head">
+        <div class="t-sort">Сортировка</div>
+        <div class="t-name">Название</div>
+        <div class="t-module">Модуль</div>
+        <div class="t-action">Управление</div>
+      </div>
+      <div class="t-body">
+        <mat-sidenav-container cdkDropList (cdkDropListDropped)="dropSection($event)">
+          <mat-sidenav-content *ngFor="let item of category" cdkDrag>
+            <div class="t-rows">
+              <div class="t-b-sort">
+                <div class="draw" cdkDragHandle>
+                  <mat-icon style="color: #bbb9b9" aria-hidden="false">drag_indicator</mat-icon>
+                  <span>{{item.sort}}</span>
+                </div>
+              </div>
+              <div class="t-b-name">{{item.title}}</div>
+              <div class="t-b-module">{{item.moduleName}}</div>
+              <div class="t-b-action">
+                <button class="mx-2" color="basic" mat-mini-fab (click)="getCategory(item.id)">
+                  <mat-icon>edit</mat-icon>
+                </button>
+                <button [title]="getTitle(item.submenu)" class="mx-2" color="warn" mat-mini-fab (click)="deleteCategory(item.id)"
+                        [disabled]="item.submenu.length !== 0">
+                  <mat-icon>delete</mat-icon>
+                </button>
+              </div>
+            </div>
+          </mat-sidenav-content>
+        </mat-sidenav-container>
+      </div>
+    </div>
+  </div>
+</section>
